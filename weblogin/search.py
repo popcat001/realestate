@@ -12,7 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from playwright.sync_api import Locator, Page, TimeoutError as PlaywrightTimeout, sync_playwright
 
-load_dotenv(Path(__file__).parent / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 LOGIN_URL = "https://search.mlslistings.com/Matrix/Account/Login"
 SEARCH_URL = "https://search.mlslistings.com/Matrix/Search/Residential/ResidentialSearch"
@@ -277,7 +277,7 @@ def run(facts: PropertyFacts, *, dry_run: bool = False, headless: bool = False, 
     userid = os.environ.get("userid", "")
     pw = os.environ.get("pw", "")
     if not userid or not pw:
-        sys.exit("ERROR: userid and pw must be set in mls_auto/.env")
+        sys.exit("ERROR: userid and pw must be set in .env")
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=headless, slow_mo=0 if headless else 200)

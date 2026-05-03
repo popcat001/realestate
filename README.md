@@ -7,11 +7,10 @@ The workflow is intentionally fill-only: the script opens MLS in Chromium, logs 
 ## Files
 
 - `prd.md`: Original requirement notes.
-- `residential_search.png`: Reference screenshot for the MLS Residential Search form.
-- `address_input.png`: Reference screenshot for the Map Search address suggestion behavior.
-- `mls_auto/search.py`: Main Playwright automation.
-- `mls_auto/debug_page.py`: Login/search-page debug helper.
-- `mls_auto/.env`: Local MLS credentials. This file is ignored by Git.
+- `weblogin/residential_search.png`: Reference screenshot for the MLS Residential Search form.
+- `weblogin/address_input.png`: Reference screenshot for the Map Search address suggestion behavior.
+- `weblogin/search.py`: Main Playwright automation.
+- `.env`: Local MLS credentials. This file is ignored by Git.
 
 ## Setup
 
@@ -22,7 +21,7 @@ uv add playwright python-dotenv
 uv run playwright install chromium
 ```
 
-Create `mls_auto/.env` with MLS credentials:
+Create `.env` with MLS credentials:
 
 ```bash
 userid=YOUR_USER_ID
@@ -44,7 +43,7 @@ First, look up the subject property on Zillow or Redfin and record:
 Run a dry run to verify the criteria that will be filled:
 
 ```bash
-python3 mls_auto/search.py --dry-run \
+python3 weblogin/search.py --dry-run \
   "1390 Miravalle Ave Los Altos CA" \
   "Single Family Home" \
   --beds 3 \
@@ -56,7 +55,7 @@ python3 mls_auto/search.py --dry-run \
 Open a visible browser and fill the MLS form:
 
 ```bash
-python3 mls_auto/search.py \
+python3 weblogin/search.py \
   "1390 Miravalle Ave Los Altos CA" \
   "Single Family Home" \
   --beds 3 \
@@ -70,7 +69,7 @@ The browser stays open until Enter is pressed in the terminal. The search is not
 For non-interactive checks only:
 
 ```bash
-python3 mls_auto/search.py --headless --no-pause \
+python3 weblogin/search.py --headless --no-pause \
   "1390 Miravalle Ave Los Altos CA" \
   "Single Family Home" \
   --beds 3 \
@@ -103,8 +102,8 @@ If the popup remains visible, manually click the suggestion text in the browser 
 Run syntax and dry-run checks after edits:
 
 ```bash
-python3 -c "compile(open('mls_auto/search.py').read(), 'mls_auto/search.py', 'exec'); print('syntax ok')"
-python3 mls_auto/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
+python3 -c "compile(open('weblogin/search.py').read(), 'weblogin/search.py', 'exec'); print('syntax ok')"
+python3 weblogin/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
 ```
 
 Live verification requires MLS credentials and a browser session.

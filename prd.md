@@ -25,7 +25,7 @@ do a websearch on Zillow/Redfin to determine the basic info of the property: pro
 
 Requirement 2. 
 
-I want to create a webservice to do the same. instead of login website, use API; the MLS_API_KEY is in .env file. And the api docs are here: https://repliers.com/?utm_source=google&utm_medium=search&utm_campaign=general-kw-usa&gad_source=1&gad_campaignid=22237667035&gbraid=0AAAAACxYWdy2N2qbDnvCHyewgdzm9IUgo&gclid=CjwKCAjw5NvPBhAoEiwA_2egfkDZqcIEW9SyHKXm7waAVXhqrgeMcNHtwvXQN0eBZAaF1EVcMUwSFRoCmAMQAvD_BwE.
+I want to create a webservice to do the same. Instead of login website, use API; the MLS_API_KEY is in .env file. And the api docs are here: https://repliers.com/?utm_source=google&utm_medium=search&utm_campaign=general-kw-usa&gad_source=1&gad_campaignid=22237667035&gbraid=0AAAAACxYWdy2N2qbDnvCHyewgdzm9IUgo&gclid=CjwKCAjw5NvPBhAoEiwA_2egfkDZqcIEW9SyHKXm7waAVXhqrgeMcNHtwvXQN0eBZAaF1EVcMUwSFRoCmAMQAvD_BwE.
 
 ON the UI
 1. input address

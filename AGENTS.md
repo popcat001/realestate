@@ -4,10 +4,10 @@ This repository automates MLS Listings Residential Search form filling. Preserve
 
 ## Project Context
 
-- Main script: `mls_auto/search.py`
-- Credentials: `mls_auto/.env` with `userid` and `pw`
+- Main script: `weblogin/search.py`
+- Credentials: `.env` with `userid` and `pw`
 - Requirement source: `prd.md`
-- UI references: `residential_search.png` and `address_input.png`
+- UI references: `weblogin/residential_search.png` and `weblogin/address_input.png`
 - Claude skill location, when relevant: `/Users/xiang/.claude/SKILLS/mls-search/skill.md`
 
 ## Operating Rules
@@ -25,8 +25,8 @@ This repository automates MLS Listings Residential Search form filling. Preserve
 The expected agent workflow is:
 
 1. Given an address, use Zillow or Redfin to determine property type, beds, baths, SqFt, and lot size.
-2. Run `mls_auto/search.py --dry-run` with those facts to verify the derived criteria.
-3. Run `mls_auto/search.py` in a visible browser to log in and fill the MLS form.
+2. Run `weblogin/search.py --dry-run` with those facts to verify the derived criteria.
+3. Run `weblogin/search.py` in a visible browser to log in and fill the MLS form.
 4. Stop before submitting. Let the user inspect the browser.
 
 The script should fill:
@@ -51,8 +51,8 @@ The script should fill:
 At minimum, run:
 
 ```bash
-python3 -c "compile(open('mls_auto/search.py').read(), 'mls_auto/search.py', 'exec'); print('syntax ok')"
-python3 mls_auto/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
+python3 -c "compile(open('weblogin/search.py').read(), 'weblogin/search.py', 'exec'); print('syntax ok')"
+python3 weblogin/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
 ```
 
 Live MLS verification may require elevated browser permission and valid credentials.
