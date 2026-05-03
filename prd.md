@@ -6,7 +6,7 @@ The login credential is in .env (userid and pw)
 
 
 Input: a house address 
-The agent will automatically input the parameters (the UI as shown in residential_search.png)
+The agent will automatically input the parameters (the UI as shown in skills/mls-search/assets/residential_search.png)
 
 Parameters to fill
 do a websearch on Zillow/Redfin to determine the basic info of the property: property type, # of beds, # of bath, sqft, and lotsize
@@ -25,12 +25,4 @@ do a websearch on Zillow/Redfin to determine the basic info of the property: pro
 
 Requirement 2. 
 
-I want to create a webservice to do the same. Instead of login website, use API; the MLS_API_KEY is in .env file. And the api docs are here: https://repliers.com/?utm_source=google&utm_medium=search&utm_campaign=general-kw-usa&gad_source=1&gad_campaignid=22237667035&gbraid=0AAAAACxYWdy2N2qbDnvCHyewgdzm9IUgo&gclid=CjwKCAjw5NvPBhAoEiwA_2egfkDZqcIEW9SyHKXm7waAVXhqrgeMcNHtwvXQN0eBZAaF1EVcMUwSFRoCmAMQAvD_BwE.
-
-ON the UI
-1. input address
-2. then do websearch, show the property details; 
-3. autofill search parameters (editable)
-4. search and retrieve the comparison analysis as a table
-
-Use frontend skills to build the UI
+In the `mls-search` skill, support an API backend instead of MLS website login. Use `MLS_API_KEY` from `.env` and the Repliers API docs: https://repliers.com/?utm_source=google&utm_medium=search&utm_campaign=general-kw-usa&gad_source=1&gad_campaignid=22237667035&gbraid=0AAAAACxYWdy2N2qbDnvCHyewgdzm9IUgo&gclid=CjwKCAjw5NvPBhAoEiwA_2egfkDZqcIEW9SyHKXm7waAVXhqrgeMcNHtwvXQN0eBZAaF1EVcMUwSFRoCmAMQAvD_BwE.

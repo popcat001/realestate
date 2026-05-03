@@ -1,14 +1,15 @@
 # Real Estate Automation Agent Instructions
 
-This repository automates MLS Listings Residential Search form filling. Preserve the fill-only behavior unless the user explicitly asks for submission or result scraping.
+This repository automates MLS comparable-property searches through either Repliers API search or MLS Listings Residential Search form filling. Preserve browser fill-only behavior unless the user explicitly asks for submission or result scraping.
 
 ## Project Context
 
-- Main script: `weblogin/search.py`
-- Credentials: `.env` with `userid` and `pw`
+- Browser script: `skills/mls-search/scripts/search.py`
+- API script: `skills/mls-search/scripts/search_repliers_api.py`
+- Credentials: `.env` with `userid` and `pw` for browser mode, plus `MLS_API_KEY` for API mode
 - Requirement source: `prd.md`
-- UI references: `weblogin/residential_search.png` and `weblogin/address_input.png`
-- Claude skill location, when relevant: `/Users/xiang/.claude/SKILLS/mls-search/skill.md`
+- UI references: `skills/mls-search/assets/residential_search.png` and `skills/mls-search/assets/address_input.png`
+- Local skill location: `skills/mls-search/SKILL.md`
 
 ## Operating Rules
 
@@ -22,11 +23,17 @@ This repository automates MLS Listings Residential Search form filling. Preserve
 
 ## MLS Workflow
 
-The expected agent workflow is:
+Prefer API mode when the user asks to use Repliers/API, avoid browser login, retrieve results, or build comparison analysis:
+
+```bash
+python3 skills/mls-search/scripts/search_repliers_api.py "990 Rose Ave, Mountain View, CA 94040"
+```
+
+The expected browser workflow is:
 
 1. Given an address, use Zillow or Redfin to determine property type, beds, baths, SqFt, and lot size.
-2. Run `weblogin/search.py --dry-run` with those facts to verify the derived criteria.
-3. Run `weblogin/search.py` in a visible browser to log in and fill the MLS form.
+2. Run `skills/mls-search/scripts/search.py --dry-run` with those facts to verify the derived criteria.
+3. Run `skills/mls-search/scripts/search.py` in a visible browser to log in and fill the MLS form.
 4. Stop before submitting. Let the user inspect the browser.
 
 The script should fill:
@@ -51,8 +58,9 @@ The script should fill:
 At minimum, run:
 
 ```bash
-python3 -c "compile(open('weblogin/search.py').read(), 'weblogin/search.py', 'exec'); print('syntax ok')"
-python3 weblogin/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
+python3 -c "compile(open('skills/mls-search/scripts/search.py').read(), 'skills/mls-search/scripts/search.py', 'exec'); print('syntax ok')"
+python3 -c "compile(open('skills/mls-search/scripts/search_repliers_api.py').read(), 'skills/mls-search/scripts/search_repliers_api.py', 'exec'); print('syntax ok')"
+python3 skills/mls-search/scripts/search.py --dry-run "990 Rose Ave, Mountain View, CA 94040" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
 ```
 
-Live MLS verification may require elevated browser permission and valid credentials.
+Live browser verification may require elevated browser permission and valid credentials. Live API verification requires `MLS_API_KEY`.

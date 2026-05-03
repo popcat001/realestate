@@ -12,7 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from playwright.sync_api import Locator, Page, TimeoutError as PlaywrightTimeout, sync_playwright
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parents[3] / ".env")
 
 LOGIN_URL = "https://search.mlslistings.com/Matrix/Account/Login"
 SEARCH_URL = "https://search.mlslistings.com/Matrix/Search/Residential/ResidentialSearch"

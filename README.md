@@ -7,9 +7,11 @@ The workflow is intentionally fill-only: the script opens MLS in Chromium, logs 
 ## Files
 
 - `prd.md`: Original requirement notes.
-- `weblogin/residential_search.png`: Reference screenshot for the MLS Residential Search form.
-- `weblogin/address_input.png`: Reference screenshot for the Map Search address suggestion behavior.
-- `weblogin/search.py`: Main Playwright automation.
+- `skills/mls-search/assets/residential_search.png`: Reference screenshot for the MLS Residential Search form.
+- `skills/mls-search/assets/address_input.png`: Reference screenshot for the Map Search address suggestion behavior.
+- `skills/mls-search/scripts/search.py`: Main Playwright automation.
+- `skills/mls-search/scripts/search_repliers_api.py`: Repliers API comparable-search CLI.
+- `skills/mls-search/SKILL.md`: Local skill entrypoint for browser and API MLS search workflows.
 - `.env`: Local MLS credentials. This file is ignored by Git.
 
 ## Setup
@@ -26,11 +28,33 @@ Create `.env` with MLS credentials:
 ```bash
 userid=YOUR_USER_ID
 pw=YOUR_PASSWORD
+MLS_API_KEY=YOUR_REPLIERS_API_KEY
 ```
 
 Do not commit `.env` or `.chat` files.
 
 ## Usage
+
+### API Comparable Search
+
+Use the Repliers API path when you want comparable sold-property results without logging into the MLS website:
+
+```bash
+python3 skills/mls-search/scripts/search_repliers_api.py \
+  "990 Rose Ave, Mountain View, CA 94040"
+```
+
+For JSON output:
+
+```bash
+python3 skills/mls-search/scripts/search_repliers_api.py \
+  "990 Rose Ave, Mountain View, CA 94040" \
+  --json --limit 10
+```
+
+The script loads `MLS_API_KEY` from `.env`, finds the subject property by address, derives sold-comparable criteria, and queries Repliers for sold listings within 1 mile.
+
+### Browser Form Fill
 
 First, look up the subject property on Zillow or Redfin and record:
 
@@ -43,8 +67,8 @@ First, look up the subject property on Zillow or Redfin and record:
 Run a dry run to verify the criteria that will be filled:
 
 ```bash
-python3 weblogin/search.py --dry-run \
-  "1390 Miravalle Ave Los Altos CA" \
+python3 skills/mls-search/scripts/search.py --dry-run \
+  "990 Rose Ave, Mountain View, CA 94040" \
   "Single Family Home" \
   --beds 3 \
   --baths 2 \
@@ -55,8 +79,8 @@ python3 weblogin/search.py --dry-run \
 Open a visible browser and fill the MLS form:
 
 ```bash
-python3 weblogin/search.py \
-  "1390 Miravalle Ave Los Altos CA" \
+python3 skills/mls-search/scripts/search.py \
+  "990 Rose Ave, Mountain View, CA 94040" \
   "Single Family Home" \
   --beds 3 \
   --baths 2 \
@@ -69,8 +93,8 @@ The browser stays open until Enter is pressed in the terminal. The search is not
 For non-interactive checks only:
 
 ```bash
-python3 weblogin/search.py --headless --no-pause \
-  "1390 Miravalle Ave Los Altos CA" \
+python3 skills/mls-search/scripts/search.py --headless --no-pause \
+  "990 Rose Ave, Mountain View, CA 94040" \
   "Single Family Home" \
   --beds 3 \
   --baths 2 \
@@ -102,8 +126,9 @@ If the popup remains visible, manually click the suggestion text in the browser 
 Run syntax and dry-run checks after edits:
 
 ```bash
-python3 -c "compile(open('weblogin/search.py').read(), 'weblogin/search.py', 'exec'); print('syntax ok')"
-python3 weblogin/search.py --dry-run "1390 Miravalle Ave Los Altos CA" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
+python3 -c "compile(open('skills/mls-search/scripts/search.py').read(), 'skills/mls-search/scripts/search.py', 'exec'); print('syntax ok')"
+python3 -c "compile(open('skills/mls-search/scripts/search_repliers_api.py').read(), 'skills/mls-search/scripts/search_repliers_api.py', 'exec'); print('syntax ok')"
+python3 skills/mls-search/scripts/search.py --dry-run "990 Rose Ave, Mountain View, CA 94040" "Single Family Home" --beds 3 --baths 2 --sqft 1800 --lot-size 7000
 ```
 
-Live verification requires MLS credentials and a browser session.
+Live browser verification requires MLS credentials and a browser session. Live API verification requires `MLS_API_KEY`.
