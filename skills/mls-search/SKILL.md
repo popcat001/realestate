@@ -10,9 +10,9 @@ This skill has two backends:
 - **API mode**: use Repliers/API with `MLS_API_KEY` to search and return comparable results.
 - **Browser mode**: use the MLS Listings website automation to fill the Residential Search form and stop before submitting.
 
-Prefer API mode when the user asks for API, Repliers, webservice, comparison analysis, results retrieval, or a comps table. Use browser mode when the user asks to log into MLS Listings, fill the Residential Search form, inspect the browser, or preserve fill-only behavior.
+API mode is the default mode. Use browser mode only when the user asks to log into MLS Listings, fill the Residential Search form, inspect the browser, or preserve fill-only behavior.
 
-If the user does not specify a backend, ask only if it affects the outcome. Otherwise prefer API mode for retrieving results and browser mode for visual form inspection.
+If the user does not specify a backend, use API mode unless visual form inspection is clearly required.
 
 ## Required Context
 

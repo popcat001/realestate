@@ -1,8 +1,8 @@
 # Real Estate MLS Search Automation
 
-This project automates filling the MLS Listings Residential Search form for comparable sold-property searches.
+This project automates MLS comparable sold-property searches from a subject address. The API workflow uses Repliers with `MLS_API_KEY` to find the subject property, derive the sold-comps criteria, search nearby sold listings, and return comparison results as a table or JSON.
 
-The workflow is intentionally fill-only: the script opens MLS in Chromium, logs in, fills the search parameters, confirms the map-address suggestion when possible, and stops before submitting the search so the user can inspect or adjust the form.
+The browser workflow remains available for MLS Listings form inspection: it opens Chromium, logs in, fills the search parameters, confirms the map-address suggestion when possible, and stops before submitting.
 
 ## Files
 

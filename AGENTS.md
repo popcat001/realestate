@@ -1,6 +1,10 @@
 # Real Estate Automation Agent Instructions
 
-This repository automates MLS comparable-property searches through either Repliers API search or MLS Listings Residential Search form filling. Preserve browser fill-only behavior unless the user explicitly asks for submission or result scraping.
+This repository automates MLS comparable-property searches from a subject address. The API workflow uses Repliers with `MLS_API_KEY` to find the subject property, derive sold-comps criteria, search nearby sold listings, and return comparison results as a table or JSON.
+
+API mode is the default mode.
+
+The browser workflow remains available for MLS Listings form inspection. Preserve browser fill-only behavior unless the user explicitly asks for submission or result scraping.
 
 ## Project Context
 
