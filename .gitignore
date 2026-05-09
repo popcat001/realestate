@@ -3,3 +3,6 @@
 .chat
 
 .DS_Store
+
+worktrees/
+.agents/worktrees/
